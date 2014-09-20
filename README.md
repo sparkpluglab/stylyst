@@ -1,4 +1,4 @@
 stylyst
 =======
 
-ML to create outfits
+ML to create outfits. Teaching machine fashion rules.

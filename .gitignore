@@ -56,3 +56,6 @@ venv
 
 #mongodb
 db
+
+#OSX
+.DS_store

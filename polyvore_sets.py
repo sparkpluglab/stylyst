@@ -16,7 +16,7 @@ styledb = connection.stylelyst
 #sets = styledb.sets
 curated_sets=styledb.curated_sets
 url =  'http://www.polyvore.com/cgi/search.sets?.in=json&.out=json&request={"date":"week","query":"%s","page":%s}'
-user_url = 'http://www.polyvore.com/cgi/profile?.in=json&.out=json&request={"id":"%s","page":%s,"filter":"sets"}'
+user_url = 'http://www.polyvore.com/cgi/profile?.in=json&.out=json&request={"id":"%s","page":%s,".passback":%s,"filter":"sets"}'
 queries = ["sweatshirt", "hoodie","tee","t shirt","tunic","coat","jacket","vest","jeans","pants","leggings","shorts","jumpsuit","romper","boots","clogs","flats","oxfords","pumps","sandals","sneakers","loafers","mocassin","handbags","wallets","messenger","clutches","totes","backpack","Rucksack",]
 #users = ["3429964"]
 users = ["3429964","4328991","3291531","2874177","3296235","3265576","3045047","3361674","3571862","3211688"]
@@ -36,10 +36,14 @@ def download_usersets(query):
   page = 1
   more_pages = True
   usersets = []
+
   while page < num_pages:
     print query, page
-    time.sleep(random.randint(1,60))
-    r = requests.get( user_url % (query, page),headers=headers)
+    time.sleep(random.randint(1,1))
+    count = (page-1)*20 + 1
+    passback = '{"grid_idx_2x2":'+str(count)+',"idx_sets":'+str(count)+'}' #polyvore expect this
+    r = requests.get( user_url % (query, page, passback),headers=headers)
+    print r.url
     page = page + 1
     for item in r.json()["items"]:
       if item:

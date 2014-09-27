@@ -12,14 +12,15 @@ import json
 import random
 
 connection = Connection()
-styledb = connection.stylelyst
+styledb = connection.stylyst
 #sets = styledb.sets
 curated_sets=styledb.curated_sets
 url =  'http://www.polyvore.com/cgi/search.sets?.in=json&.out=json&request={"date":"week","query":"%s","page":%s}'
 user_url = 'http://www.polyvore.com/cgi/profile?.in=json&.out=json&request={"id":"%s","page":%s,".passback":%s,"filter":"sets"}'
 queries = ["sweatshirt", "hoodie","tee","t shirt","tunic","coat","jacket","vest","jeans","pants","leggings","shorts","jumpsuit","romper","boots","clogs","flats","oxfords","pumps","sandals","sneakers","loafers","mocassin","handbags","wallets","messenger","clutches","totes","backpack","Rucksack",]
 #users = ["3429964"]
-users = ["3429964","4328991","3291531","2874177","3296235","3265576","3045047","3361674","3571862","3211688"]
+#users = ["3429964","4328991","3291531","2874177","3296235","3265576","3045047","3361674","3571862","3211688"]
+users = ["4944493","8277554","3551425", "5787199","3361674","3296235","1428583","3580253","5693554","4323534"]
 num_pages = 25
 headers={'User-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8) AppleWebKit/537 (KHTML, like Gecko) Chrome/28 Safari/537'}
 
@@ -40,7 +41,7 @@ def download_usersets(query):
   while page < num_pages:
     print query, page
     time.sleep(random.randint(1,1))
-    count = (page-1)*20 + 1
+    count = (page-1)*21
     passback = '{"grid_idx_2x2":'+str(count)+',"idx_sets":'+str(count)+'}' #polyvore expect this
     r = requests.get( user_url % (query, page, passback),headers=headers)
     print r.url
